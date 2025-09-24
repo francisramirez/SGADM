@@ -3,7 +3,7 @@
 using SGA.Domain.Repository;
 using SGA.Domain.Entitines.Configuration;
 
-namespace SGA.Application.Repositories
+namespace SGA.Application.Repositories.Confguration
 {
     public interface IAsientoRepository : IBaseRepository<Asiento>
     {
