@@ -26,17 +26,6 @@ namespace SGA.Persistence.Repositories.Configuration
             throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// Retrieves all buses from the database.
-        /// </summary>
-        /// <remarks>This method executes a stored procedure to fetch bus data from the database.  If no
-        /// buses are found, the operation result will indicate success with an appropriate message,  and the data will
-        /// be null. If buses are found, the operation result will contain a list of  <see cref="BusGetModel"/> objects
-        /// representing the buses.</remarks>
-        /// <returns>An <see cref="OperationResult"/> containing the outcome of the operation.  If successful, the <see
-        /// cref="OperationResult.Data"/> property will hold a list of  <see cref="BusGetModel"/> objects. If no buses
-        /// are found, the data will be null.  In case of an error, the operation result will indicate failure with an
-        /// error message.</returns>
         public async Task<OperationResult> GetAll()
         {
             OperationResult operationResult = new OperationResult();
@@ -52,7 +41,7 @@ namespace SGA.Persistence.Repositories.Configuration
 
                         using (SqlDataReader da = await command.ExecuteReaderAsync())
                         {
-                          
+
 
                             if (!da.HasRows)
                             {
@@ -128,7 +117,7 @@ namespace SGA.Persistence.Repositories.Configuration
 
                             if (!da.HasRows)
                             {
-                                operationResult.Success = true;
+                                operationResult.Success = false;
                                 operationResult.Message = "No se encontraron buses.";
                                 return operationResult;
                             }
@@ -221,8 +210,10 @@ namespace SGA.Persistence.Repositories.Configuration
 
                 using (SqlConnection connection = new SqlConnection(_configuration["SgaConnString"]))
                 {
+
                     using (SqlCommand command = new SqlCommand("usp_Bus_Guardar", connection))
                     {
+
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@NumeroPlaca", entity.NumeroPlaca);
                         command.Parameters.AddWithValue("@Nombre", entity.Nombre);
@@ -231,9 +222,7 @@ namespace SGA.Persistence.Repositories.Configuration
                         command.Parameters.AddWithValue("@Disponible", entity.Disponible);
                         command.Parameters.AddWithValue("@UsuarioModificacion", entity.UsuarioModificacion);
                         command.Parameters.AddWithValue("@FechaCreacion", entity.FechaCreacion);
-                        command.Parameters.AddWithValue("@FechaModificacion", entity.FechaModificacion);
-                        command.Parameters.AddWithValue("@Estatus", entity.Estatus);
-
+                      
 
                         SqlParameter p_result = new SqlParameter("@Presult", System.Data.SqlDbType.VarChar)
                         {
