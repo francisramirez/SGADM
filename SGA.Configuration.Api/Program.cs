@@ -1,4 +1,9 @@
 
+using SGA.Application.Interfaces;
+using SGA.Application.Repositories.Confguration;
+using SGA.Application.Services;
+using SGA.Persistence.Repositories.Configuration;
+
 namespace SGA.Configuration.Api
 {
     public class Program
@@ -8,6 +13,9 @@ namespace SGA.Configuration.Api
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+
+            builder.Services.AddScoped<IBusRepository, BusRepositoryAdo>();
+            builder.Services.AddTransient<IBusService, BusService>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
