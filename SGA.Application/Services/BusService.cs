@@ -39,7 +39,9 @@ namespace SGA.Application.Services
                     NumeroPlaca = createBusDto.NumeroPlaca,
                     CapacidadPiso1 = createBusDto.CapacidadPiso1,
                     CapacidadPiso2 = createBusDto.CapacidadPiso2,
-                    Disponible = createBusDto.Disponible
+                    Disponible = createBusDto.Disponible,
+                    FechaCreacion = DateTime.Now,
+                    UsuarioModificacion = createBusDto.UsuarioCreacion
                 };
 
 
@@ -150,7 +152,9 @@ namespace SGA.Application.Services
                     NumeroPlaca = updateBusDto.NumeroPlaca,
                     CapacidadPiso1 = updateBusDto.CapacidadPiso1,
                     CapacidadPiso2 = updateBusDto.CapacidadPiso2,
-                    Disponible = updateBusDto.Disponible
+                    Disponible = updateBusDto.Disponible,
+                    UsuarioModificacion = updateBusDto.UsuarioActualizacion,
+                    FechaModificacion = DateTime.Now
                 };
                 var oResultGetEntity = await _busRepository.Update(bus);
 

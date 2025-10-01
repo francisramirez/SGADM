@@ -32,7 +32,7 @@ namespace SGA.Persistence.Repositories.Configuration
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(_configuration["SgaConnString"]))
+                using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("SgaConnString")))
                 {
                     using (SqlCommand command = new SqlCommand("usp_Bus_ObtenerBuses", connection))
                     {
@@ -101,12 +101,11 @@ namespace SGA.Persistence.Repositories.Configuration
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(_configuration["SgaConnString"]))
+                using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("SgaConnString")))
                 {
-                    using (SqlCommand command = new SqlCommand("usp_Bus_ObtenerBusById", connection))
+                    using (SqlCommand command = new SqlCommand("usp_Bus_ObtenerBusesById", connection))
                     {
-                        command.Parameters.AddWithValue("@IdBus", Id);
-
+                    
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@IdBus", Id);
 
@@ -208,7 +207,7 @@ namespace SGA.Persistence.Repositories.Configuration
             {
                 // Implementación ADO.NET para guardar el bus en la base de datos
 
-                using (SqlConnection connection = new SqlConnection(_configuration["SgaConnString"]))
+                using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("SgaConnString")))
                 {
 
                     using (SqlCommand command = new SqlCommand("usp_Bus_Guardar", connection))
@@ -236,6 +235,10 @@ namespace SGA.Persistence.Repositories.Configuration
 
                         var commandResult = await command.ExecuteNonQueryAsync();
                     }
+
+                    operationResult.Success = true;
+                    operationResult.Message = "Bus guardado correctamente.";
+                   
                 }
             }
             catch (Exception ex)
@@ -291,7 +294,7 @@ namespace SGA.Persistence.Repositories.Configuration
                 // Implementación ADO.NET para guardar el bus en la base de datos
 
 
-                using (SqlConnection connection = new SqlConnection(_configuration["SgaConnString"]))
+                using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("SgaConnString") ))
                 {
                     using (SqlCommand command = new SqlCommand("usp_Bus_Actualizar", connection))
                     {
@@ -303,7 +306,6 @@ namespace SGA.Persistence.Repositories.Configuration
                         command.Parameters.AddWithValue("@CapacidadPiso2", entity.CapacidadPiso2);
                         command.Parameters.AddWithValue("@Disponible", entity.Disponible);
                         command.Parameters.AddWithValue("@UsuarioModificacion", entity.UsuarioModificacion);
-                        command.Parameters.AddWithValue("@FechaCreacion", entity.FechaCreacion);
                         command.Parameters.AddWithValue("@FechaModificacion", entity.FechaModificacion);
                         command.Parameters.AddWithValue("@Estatus", entity.Estatus);
 
@@ -320,6 +322,10 @@ namespace SGA.Persistence.Repositories.Configuration
 
                         var commandResult = await command.ExecuteNonQueryAsync();
                     }
+
+                    operationResult.Success = true;
+                    operationResult.Message = "Bus actualizado correctamente.";
+                   
                 }
             }
             catch (Exception ex)
