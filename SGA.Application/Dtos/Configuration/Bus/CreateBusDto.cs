@@ -9,7 +9,9 @@ namespace SGA.Application.Dtos.Configuration.Bus
         [Required(ErrorMessage ="El numero de placa es requerido")]
         [MaxLength(50, ErrorMessage ="El numero de placa no debe exceder los 50 caracteres")]
         [MinLength(15, ErrorMessage ="El numero de placa debe tener al menos 15 caracteres")]
-        public string? NumeroPlaca { get; set; }
+         public string? NumeroPlaca { get; set; }
+
+        
         public string? Nombre { get; set; }
         public int CapacidadPiso1 { get; set; }
         public int CapacidadPiso2 { get; set; }

@@ -17,6 +17,7 @@ namespace SGA.Persistence.Context
         public DbSet<Ruta> Rutas { get; set; }
 
         #endregion
+      
 
     }
 }
