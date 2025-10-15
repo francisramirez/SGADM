@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Dependencies\Bus\" />
+    <Folder Include="Dependencies\Asiento\" />
     <Folder Include="Dependencies\Ruta\" />
   </ItemGroup>
 

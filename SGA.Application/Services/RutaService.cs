@@ -1,10 +1,11 @@
 ﻿
+using Microsoft.Extensions.Logging;
 using SGA.Application.Base;
 using SGA.Application.Dtos.Configuration.Ruta;
 using SGA.Application.Interfaces;
 using SGA.Application.Repositories.Confguration;
-using Microsoft.Extensions.Logging;
 using SGA.Domain.Entitines.Configuration;
+
 namespace SGA.Application.Services
 {
     public sealed class RutaService : IRutaService
@@ -58,7 +59,7 @@ namespace SGA.Application.Services
             catch (Exception ex)
             {
 
-                _looger.LogError("Error al crear la ruta", ex.ToString());
+                _looger.LogError(ex, "Error al crear la ruta");
                 result.Success = false;
             }
             return result;
@@ -106,8 +107,9 @@ namespace SGA.Application.Services
             }
             catch (Exception ex)
             {
-                _looger.LogError("Error al eliminar la ruta", ex.ToString());
+                _looger.LogError(ex, "Error al eliminar la ruta");
                 result.Success = false;
+                result.Message = "Error al eliminar la ruta";
                 return result;
             }
             return result;

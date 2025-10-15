@@ -1,7 +1,9 @@
 
+using Microsoft.EntityFrameworkCore;
 using SGA.Application.Interfaces;
 using SGA.Application.Repositories.Confguration;
 using SGA.Application.Services;
+using SGA.Persistence.Context;
 using SGA.Persistence.Repositories.Configuration;
 
 namespace SGA.Configuration.Api
@@ -14,8 +16,14 @@ namespace SGA.Configuration.Api
 
             // Add services to the container.
 
-           builder.Services.AddScoped<IBusRepository, BusRepositoryAdo>();
-           builder.Services.AddTransient<IBusService, BusService>();
+            builder.Services.AddDbContext<SGAContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SgaConnString")));
+
+
+            builder.Services.AddScoped<IBusRepository, BusRepositoryAdo>();
+            builder.Services.AddTransient<IBusService, BusService>();
+
+            builder.Services.AddScoped<IRutaRepository, RutaRepository>();
+            builder.Services.AddTransient<IRutaService, RutaService>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

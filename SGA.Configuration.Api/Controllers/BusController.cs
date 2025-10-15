@@ -3,7 +3,6 @@ using SGA.Application.Base;
 using SGA.Application.Dtos.Configuration.Bus;
 using SGA.Application.Interfaces;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace SGA.Configuration.Api.Controllers
 {

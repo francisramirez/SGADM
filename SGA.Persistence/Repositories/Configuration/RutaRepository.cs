@@ -20,7 +20,6 @@ namespace SGA.Persistence.Repositories.Configuration
             this.context = context;
             _logger = logger;
         }
-
-
+        
     }
 }
