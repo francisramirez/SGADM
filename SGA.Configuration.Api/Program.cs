@@ -5,7 +5,7 @@ using SGA.Application.Repositories.Confguration;
 using SGA.Application.Services;
 using SGA.Persistence.Context;
 using SGA.Persistence.Repositories.Configuration;
-
+using SGA.Infraestructure.Dependencies.Bus;
 namespace SGA.Configuration.Api
 {
     public class Program
@@ -18,9 +18,7 @@ namespace SGA.Configuration.Api
 
             builder.Services.AddDbContext<SGAContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SgaConnString")));
 
-
-            builder.Services.AddScoped<IBusRepository, BusRepositoryAdo>();
-            builder.Services.AddTransient<IBusService, BusService>();
+            builder.Services.AddBusDependencies();
 
             builder.Services.AddScoped<IRutaRepository, RutaRepository>();
             builder.Services.AddTransient<IRutaService, RutaService>();

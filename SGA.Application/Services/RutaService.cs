@@ -48,7 +48,7 @@ namespace SGA.Application.Services
                     result.Message = opResult.Message;
                     return result;
                 }
-
+              
                 result.Success = opResult.Success;
                 result.Message = opResult.Message;
                 result.Data = ruta;

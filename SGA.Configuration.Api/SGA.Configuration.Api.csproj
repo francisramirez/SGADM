@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SGA.Application\SGA.Application.csproj" />
+    <ProjectReference Include="..\SGA.Infraestructure\SGA.Infraestructure.csproj" />
     <ProjectReference Include="..\SGA.Persistence\SGA.Persistence.csproj" />
   </ItemGroup>
 

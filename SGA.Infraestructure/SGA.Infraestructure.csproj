@@ -7,9 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Dependencies\Bus\" />
     <Folder Include="Dependencies\Asiento\" />
     <Folder Include="Dependencies\Ruta\" />
+    <Folder Include="Logger\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SGA.Application\SGA.Application.csproj" />
+    <ProjectReference Include="..\SGA.Persistence\SGA.Persistence.csproj" />
   </ItemGroup>
 
 </Project>
