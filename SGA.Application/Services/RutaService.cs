@@ -58,7 +58,7 @@ namespace SGA.Application.Services
             }
             catch (Exception ex)
             {
-
+               
                 _looger.LogError(ex, "Error al crear la ruta");
                 result.Success = false;
             }

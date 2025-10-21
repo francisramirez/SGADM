@@ -6,6 +6,7 @@ using SGA.Application.Services;
 using SGA.Persistence.Context;
 using SGA.Persistence.Repositories.Configuration;
 using SGA.Infraestructure.Dependencies.Bus;
+using SGA.Infraestructure.Dependencies.Ruta;
 namespace SGA.Configuration.Api
 {
     public class Program
@@ -19,9 +20,7 @@ namespace SGA.Configuration.Api
             builder.Services.AddDbContext<SGAContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SgaConnString")));
 
             builder.Services.AddBusDependencies();
-
-            builder.Services.AddScoped<IRutaRepository, RutaRepository>();
-            builder.Services.AddTransient<IRutaService, RutaService>();
+            builder.Services.AddRutaDependencies();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
