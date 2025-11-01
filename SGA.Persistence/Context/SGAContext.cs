@@ -15,7 +15,7 @@ namespace SGA.Persistence.Context
 
         #region "Entidades del módulo de configuración"
         public DbSet<Ruta> Rutas { get; set; }
-
+        public DbSet<Bus> Buses { get; set; }
         #endregion
       
 

@@ -20,6 +20,14 @@ namespace SGA.Persistence.Repositories.Configuration
             this.context = context;
             _logger = logger;
         }
+        public override Task<OperationResult> Save(Ruta entity)
+        {
+            if (entity == null) 
+            {
+
+            }
+            return base.Save(entity);
+        }
         
     }
 }

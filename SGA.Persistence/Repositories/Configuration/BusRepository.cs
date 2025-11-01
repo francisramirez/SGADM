@@ -10,14 +10,16 @@ namespace SGA.Persistence.Repositories.Configuration
 {
     public sealed class BusRepository : BaseRepository<Bus>, IBusRepository
     {
+        private readonly SGAContext context;
+
         public BusRepository(SGAContext context) : base(context)
         {
-            
+            this.context = context;
         }
         public async override Task<OperationResult> Save(Bus entity)
         {
             OperationResult operationResult = new OperationResult();
-
+          
             // validaciones de datos
 
             if (entity == null)
@@ -35,7 +37,7 @@ namespace SGA.Persistence.Repositories.Configuration
             if (entity.NumeroPlaca.Length > 50)
             {
                 operationResult.Success = false;
-                operationResult.Message = "El número de placa no puede ser nulo o vacío.";
+                operationResult.Message = "La longitud del número de placa es inválida.";
                 return operationResult;
             }
             if (string.IsNullOrWhiteSpace(entity.Nombre))
@@ -50,8 +52,13 @@ namespace SGA.Persistence.Repositories.Configuration
                 operationResult.Message = "El nombre del bus no puede tener más de 50 caracteres.";
                 return operationResult;
             }
+            operationResult.Success = true;
+            operationResult.Message = "El bus fue creado correctamente.";
 
-            return await base.Save(entity);
+
+            await base.Save(entity);
+
+            return operationResult;
         }
         public override Task<OperationResult> Update(Bus entity)
         {

@@ -1,7 +1,4 @@
-﻿
-
-
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using SGA.Application.Interfaces;
 using SGA.Application.Repositories.Confguration;
 using SGA.Application.Services;
