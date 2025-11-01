@@ -38,9 +38,6 @@ namespace SGA.Persistence.Base
         {
             OperationResult result = new OperationResult();
 
-
-           
-
             result.Data = await _entities.Where(filter).ToListAsync();
 
             return result;

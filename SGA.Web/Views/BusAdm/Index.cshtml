@@ -1,0 +1,82 @@
+﻿@model IEnumerable<SGA.Application.Dtos.Configuration.Bus.GetBusDto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Adm Bus</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+              
+                IdBus
+            </th>
+            <th>
+              
+                NumeroPlaca
+            </th>
+            <th>
+                Nombre
+            </th>
+            <th>
+                CapacidadPiso1
+            </th>
+            <th>
+                CapacidadPiso2
+            </th>
+            <th>
+
+                Disponible
+            </th>
+            <th>
+                FechaCreacion
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                   
+                    @item.IdBus
+                </td>
+                <td>
+                 
+                    @item.NumeroPlaca
+                </td>
+                <td>
+                  
+                    @item.Nombre
+                </td>
+                <td>
+                  
+                    @item.CapacidadPiso1    
+                </td>
+                <td>
+                  
+                    @item.CapacidadPiso2
+                </td>
+                <td>
+                   
+                    @item.Disponible
+                </td>
+                <td>
+                    @item.FechaCreacion
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.IdBus }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.IdBus })
+                    
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

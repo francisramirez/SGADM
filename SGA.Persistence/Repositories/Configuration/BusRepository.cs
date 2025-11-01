@@ -1,5 +1,6 @@
 ﻿
 
+using Microsoft.EntityFrameworkCore;
 using SGA.Application.Repositories.Confguration;
 using SGA.Domain.Base;
 using SGA.Domain.Entitines.Configuration;
@@ -60,10 +61,67 @@ namespace SGA.Persistence.Repositories.Configuration
 
             return operationResult;
         }
-        public override Task<OperationResult> Update(Bus entity)
+        public override async Task<OperationResult> Update(Bus entity)
         {
-            // You can add custom logic here if needed before updating
-            return base.Update(entity);
+            OperationResult operationResult = new OperationResult();
+
+            try
+            {
+                Bus busToupdate = await context.Buses.FindAsync(entity.IdBus);
+
+                if (busToupdate == null)
+                {
+                    operationResult.Success = false;
+                    operationResult.Message = "Bus no encontrado.";
+                    return operationResult;
+                }
+
+                busToupdate.Nombre =  entity.Nombre;
+                busToupdate.NumeroPlaca = entity.NumeroPlaca;
+                busToupdate.CapacidadPiso1 = entity.CapacidadPiso1;
+                busToupdate.CapacidadPiso2 = entity.CapacidadPiso2;
+                busToupdate.Disponible = entity.Disponible;
+                busToupdate.UsuarioModificacion = entity.UsuarioModificacion;
+                busToupdate.FechaModificacion = entity.FechaModificacion;
+
+                context.Buses.Update(busToupdate);
+                await context.SaveChangesAsync();
+
+                operationResult.Success = true;
+                operationResult.Message = "Bus actualizado correctamente.";
+            }
+            catch (Exception ex)
+            {
+
+                operationResult.Success = false;
+                operationResult.Message = "Error al actualizar el bus: " + ex.Message;
+               
+            }
+            return operationResult;
+        }
+
+        public override async Task<OperationResult> GetAll()
+        {
+           OperationResult operationResult = new OperationResult();
+            try
+            {
+
+                var query = await (from b in context.Buses
+                            where b.Estatus == true
+                            orderby b.FechaCreacion descending
+                            select b).ToListAsync();
+
+              
+                operationResult.Data = query;
+                operationResult.Success = true;
+                operationResult.Message = "Buses recuperados correctamente.";
+            }
+            catch (Exception ex)
+            {
+                operationResult.Success = false;
+                operationResult.Message = "Error al recuperar los buses: " + ex.Message;
+            }
+            return operationResult;
         }
     }
 }

@@ -47,6 +47,10 @@ namespace SGA.Application.Services
 
                 var opResult = await _busRepository.Save(bus);
 
+                result.Success = opResult.Success;
+                result.Message = opResult.Message;
+
+
             }
             catch (Exception ex)
             {
@@ -77,7 +81,19 @@ namespace SGA.Application.Services
 
                 result.Success = true;
                 result.Message = oResultGetEntity.Message;
-                result.Data = oResultGetEntity.Data;
+              
+                Bus bus = (Bus)oResultGetEntity.Data;
+
+                result.Data = new Dtos.Configuration.Bus.GetBusDto()
+                {
+                    IdBus = bus.IdBus,
+                    Nombre = bus.Nombre,
+                    NumeroPlaca = bus.NumeroPlaca,
+                    CapacidadPiso1 = bus.CapacidadPiso1,
+                    CapacidadPiso2 = bus.CapacidadPiso2,
+                    Disponible = bus.Disponible,
+                    FechaCreacion = bus.FechaCreacion
+                };
             }
             catch (Exception ex)
             {
@@ -105,7 +121,17 @@ namespace SGA.Application.Services
                 }
                 result.Success = true;
                 result.Message = oResultGetEntities.Message;
-                result.Data = oResultGetEntities.Data;
+                result.Data = ((List<Bus>)oResultGetEntities.Data)
+                             .Select(cd => new Dtos.Configuration.Bus.GetBusDto()
+                             {
+                                 IdBus = cd.IdBus,
+                                 Nombre = cd.Nombre,
+                                 NumeroPlaca = cd.NumeroPlaca,
+                                 CapacidadPiso1 = cd.CapacidadPiso1,
+                                 CapacidadPiso2 = cd.CapacidadPiso2,
+                                 Disponible = cd.Disponible,
+                                 FechaCreacion = cd.FechaCreacion
+                             });
             }
             catch (Exception ex)
             {
@@ -145,6 +171,9 @@ namespace SGA.Application.Services
 
             try
             {
+               
+
+
                 Bus bus = new Bus()
                 {
                     IdBus = updateBusDto.IdBus,

@@ -3,7 +3,6 @@ using SGA.Application.Base;
 using SGA.Application.Dtos.Configuration.Bus;
 using SGA.Application.Interfaces;
 
-
 namespace SGA.Configuration.Api.Controllers
 {
     [Route("api/[controller]")]

@@ -8,6 +8,10 @@ namespace SGA.Domain.Entitines.Configuration
     [Table("Bus")]
     public sealed class Bus : Base.BaseEntity
     {
+        public Bus()
+        {
+            this.Estatus = true;
+        }
         [Key]
         public int IdBus { get; set; }
         public string? NumeroPlaca { get; set; }
