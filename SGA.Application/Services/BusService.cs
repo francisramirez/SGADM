@@ -5,6 +5,7 @@ using SGA.Application.Interfaces;
 using SGA.Application.Repositories.Confguration;
 using Microsoft.Extensions.Logging;
 using SGA.Domain.Entitines.Configuration;
+using SGA.Application.Extentions;
 namespace SGA.Application.Services
 {
     public class BusService : IBusService
@@ -22,16 +23,23 @@ namespace SGA.Application.Services
         {
             ServiceResult result = new ServiceResult();
 
+            _logger.LogInformation("Creating a new bus with plate number: {PlateNumber}", createBusDto.NumeroPlaca);
+
+            //if (createBusDto is null)
+            //{
+            //    result.Success = false;
+            //    result.Message = "The bus data is null.";
+            //    return result;
+            //}
+
+            result = createBusDto.IsValidBuDto();
+            
+            if (!result.Success)
+                return result;
+            
+
             try
             {
-                _logger.LogInformation("Creating a new bus with plate number: {PlateNumber}", createBusDto.NumeroPlaca);
-
-                if (createBusDto is null)
-                {
-                    result.Success = false;
-                    result.Message = "The bus data is null.";
-                    return result;
-                }
 
                 Bus bus = new Bus()
                 {
@@ -111,6 +119,7 @@ namespace SGA.Application.Services
             {
                 _logger.LogInformation("Retrieving all buses");
 
+               
                 var oResultGetEntities = await _busRepository.GetAll();
 
                 if (!oResultGetEntities.Success)
@@ -168,6 +177,12 @@ namespace SGA.Application.Services
             ServiceResult result = new ServiceResult();
 
             _logger.LogInformation("Updating a bus with plate number: {PlateNumber}", updateBusDto.NumeroPlaca);
+
+            result = updateBusDto.IsValidBuDto();
+
+            if (!result.Success)
+                return result;
+
 
             try
             {

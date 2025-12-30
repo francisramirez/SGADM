@@ -9,8 +9,17 @@ namespace SGA.Persistence.Context
     {
         public SGAContext(DbContextOptions<SGAContext> options) : base(options)
         {
+            ///  base.SavedChanges += SGAContext_SavedChanges;
+            // base.SaveChangesFailed += SGAContext_SaveChangesFailed;
+
+            // base.
+
+          
             
         }
+
+      
+
 
 
         #region "Entidades del módulo de configuración"

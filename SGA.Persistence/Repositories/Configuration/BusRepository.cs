@@ -6,6 +6,7 @@ using SGA.Domain.Base;
 using SGA.Domain.Entitines.Configuration;
 using SGA.Persistence.Base;
 using SGA.Persistence.Context;
+using System.Linq.Expressions;
 
 namespace SGA.Persistence.Repositories.Configuration
 {
@@ -20,7 +21,7 @@ namespace SGA.Persistence.Repositories.Configuration
         public async override Task<OperationResult> Save(Bus entity)
         {
             OperationResult operationResult = new OperationResult();
-          
+
             // validaciones de datos
 
             if (entity == null)
@@ -76,7 +77,7 @@ namespace SGA.Persistence.Repositories.Configuration
                     return operationResult;
                 }
 
-                busToupdate.Nombre =  entity.Nombre;
+                busToupdate.Nombre = entity.Nombre;
                 busToupdate.NumeroPlaca = entity.NumeroPlaca;
                 busToupdate.CapacidadPiso1 = entity.CapacidadPiso1;
                 busToupdate.CapacidadPiso2 = entity.CapacidadPiso2;
@@ -95,23 +96,27 @@ namespace SGA.Persistence.Repositories.Configuration
 
                 operationResult.Success = false;
                 operationResult.Message = "Error al actualizar el bus: " + ex.Message;
-               
+
             }
             return operationResult;
         }
 
         public override async Task<OperationResult> GetAll()
         {
-           OperationResult operationResult = new OperationResult();
+            OperationResult operationResult = new OperationResult();
+
+          ///  Stack<Bus> buses = new Stack<Bus>();
+
             try
             {
 
                 var query = await (from b in context.Buses
-                            where b.Estatus == true
-                            orderby b.FechaCreacion descending
-                            select b).ToListAsync();
+                                   where b.Estatus == true
+                                   orderby b.FechaCreacion descending
+                                   select b).Distinct().ToListAsync();
 
-              
+
+
                 operationResult.Data = query;
                 operationResult.Success = true;
                 operationResult.Message = "Buses recuperados correctamente.";
@@ -122,6 +127,12 @@ namespace SGA.Persistence.Repositories.Configuration
                 operationResult.Message = "Error al recuperar los buses: " + ex.Message;
             }
             return operationResult;
+        }
+
+        public override Task<OperationResult> GetAll(Expression<Func<Bus, bool>> filter)
+        {
+            // cosa
+            return base.GetAll(filter);
         }
     }
 }
